@@ -1,0 +1,1 @@
+# stoxx-europe-data-pipeline
