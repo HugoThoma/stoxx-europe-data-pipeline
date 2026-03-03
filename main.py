@@ -1,6 +1,6 @@
 from src.logging_config import setup_logging
-import logging
-
+from src.extract.fetch_prices import fetch_prices
+from src.load.load_prices import load_prices
 ###
 #
 # This is the main entry point for the stoxx_pipeline project. 
@@ -10,8 +10,12 @@ import logging
 ###
 
 
-setup_logging()
+def main():
 
-logger = logging.getLogger(__name__)
+    setup_logging()
 
-logger.info("Pipeline started")
+    df = fetch_prices(period="1y")
+    load_prices(df)
+
+if __name__ == "__main__":
+    main()
