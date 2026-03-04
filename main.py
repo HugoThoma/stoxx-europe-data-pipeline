@@ -1,6 +1,8 @@
 from src.logging_config import setup_logging
 from src.extract.fetch_prices import fetch_prices
 from src.load.load_prices import load_prices
+from src.transform.compute_analytics import rebuild_analytics_layer
+
 ###
 #
 # This is the main entry point for the stoxx_pipeline project. 
@@ -11,11 +13,18 @@ from src.load.load_prices import load_prices
 
 
 def main():
-
+    print("Starting the Stoxx pipeline...")
+    
     setup_logging()
 
     df = fetch_prices(period="1y")
-    load_prices(df)
+
+    if not df.empty:
+        load_prices(df)
+        rebuild_analytics_layer()
+        print("Pipeline completed successfully.")
+    else:
+        print("No data extracted.")
 
 if __name__ == "__main__":
     main()

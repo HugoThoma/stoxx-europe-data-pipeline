@@ -8,3 +8,10 @@
 2026-03-03 21:41:10,417 | INFO | src.extract.fetch_prices | Downloading SHEL.L
 2026-03-03 21:41:11,634 | INFO | src.load.load_prices | Data loaded successfully
 
+2026-03-04 22:17:28,734 | INFO | src.extract.fetch_prices | Starting price extraction
+2026-03-04 22:17:28,734 | INFO | src.extract.fetch_prices | Downloading MC.PA
+2026-03-04 22:17:29,301 | INFO | src.extract.fetch_prices | Downloading SAP.DE
+2026-03-04 22:17:29,444 | INFO | src.extract.fetch_prices | Downloading ASML.AS
+2026-03-04 22:17:29,581 | INFO | src.extract.fetch_prices | Downloading NESN.SW
+2026-03-04 22:17:29,757 | INFO | src.extract.fetch_prices | Downloading SHEL.L
+2026-03-04 22:17:30,655 | INFO | src.load.load_prices | Data loaded successfully
