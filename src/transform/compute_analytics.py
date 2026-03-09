@@ -95,12 +95,44 @@ def compute_analytics_metrics():
         conn.execute(query)
         conn.commit()
 
+
+###
+# This module computes a composite score for each company based on the analytics metrics.
+# The score is a weighted average of the annualized return, sharpe ratio, volatility and drawdown.
+###
+def compute_company_score():
+    engine = get_db_engine()
+
+    query = text("""
+        DROP TABLE IF EXISTS analytics_company_score;
+
+        CREATE TABLE analytics_company_score AS
+        SELECT
+            ticker,
+            (
+                annualized_return * 0.4 +
+                sharpe_ratio * 0.3 +
+                (1 - annualized_volatility) * 0.2 +
+                (1 + max_drawdown) * 0.1
+            ) AS company_score
+        FROM analytics_metrics;
+    """)
+
+    with engine.connect() as conn:
+        conn.execute(query)
+        conn.commit()
+        
+
 ###
 # This module computes the analytics metrics based on the raw price data.
 ###
 def rebuild_analytics_layer():
     compute_daily_returns()
     compute_analytics_metrics()
+    compute_company_score()
+
+
+
 
 
 

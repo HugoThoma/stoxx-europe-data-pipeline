@@ -25,3 +25,20 @@ SELECT
 FROM analytics_daily_returns
 WHERE daily_return IS NOT NULL
 GROUP BY ticker;
+
+
+
+/* Create the score table */
+CREATE TABLE analytics_company_score AS
+SELECT
+    ticker,
+    sharpe_ratio,
+    max_drawdown,
+    annualized_return,
+    (
+        annualized_return * 0.4 +
+        sharpe_ratio * 0.3 +
+        (1 - annualized_volatility) * 0.2 +
+        (1 + max_drawdown) * 0.1
+    ) AS company_score
+FROM analytics_metrics;
