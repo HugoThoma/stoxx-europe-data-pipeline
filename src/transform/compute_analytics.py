@@ -109,13 +109,19 @@ def compute_company_score():
         CREATE TABLE analytics_company_score AS
         SELECT
             ticker,
-            (
-                annualized_return * 0.4 +
-                sharpe_ratio * 0.3 +
-                (1 - annualized_volatility) * 0.2 +
-                (1 + max_drawdown) * 0.1
-            ) AS company_score
-        FROM analytics_metrics;
+            company_score,
+            RANK() OVER (ORDER BY company_score DESC) AS rank
+        FROM (
+            SELECT
+                ticker,
+                (
+                    annualized_return * 0.4 +
+                    sharpe_ratio * 0.3 +
+                    (1 - annualized_volatility) * 0.2 +
+                    (1 + max_drawdown) * 0.1
+                ) AS company_score
+            FROM analytics_metrics
+        ) s;
     """)
 
     with engine.connect() as conn:

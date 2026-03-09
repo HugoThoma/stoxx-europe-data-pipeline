@@ -46,3 +46,20 @@ FROM raw_prices
 GROUP BY ticker;
 */
 
+
+
+
+SELECT
+    ticker,
+    company_score,
+    RANK() OVER (ORDER BY company_score DESC) AS rank
+FROM (
+    SELECT
+        ticker,
+        (
+            sharpe_ratio * 0.6 +
+            annualized_return * 0.3 +
+            max_drawdown * 0.1
+        ) AS company_score
+    FROM analytics_metrics
+) s;

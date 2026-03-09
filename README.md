@@ -15,6 +15,13 @@ This project implements an end-to-end  data pipelin that :
 2. Transform layer : SQL-based modeling
 3. Mart layer : healh scoring model
 
+### Actual pipeline architecture
+1. yfinance API
+2. raw_prices -> Raw Data
+3. analytics_daily_returns -> Feature Engineering
+4. analytics_metrics -> Financial Metrics
+5. company_score -> Scoring / Ranking
+
 ### Tech Stack
 - Python
 - PostgreSQL
