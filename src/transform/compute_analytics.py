@@ -2,13 +2,6 @@ from sqlalchemy import text
 from src.db.database import get_db_engine
 
 
-
-
-
-from sqlalchemy import text
-from src.db.database import get_db_engine
-
-
 def compute_daily_returns():
     engine = get_db_engine()
 
